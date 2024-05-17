@@ -17,6 +17,7 @@ class MainScreen : public QWidget
 public:
     explicit MainScreen(QWidget *parent = nullptr);
     ~MainScreen();
+    void CreateScreen();
 
 private:
     Ui::MainScreen *ui;

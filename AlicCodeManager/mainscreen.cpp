@@ -7,6 +7,18 @@ MainScreen::MainScreen(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    CreateScreen();
+
+
+}
+
+MainScreen::~MainScreen()
+{
+    delete ui;
+}
+
+
+void MainScreen::CreateScreen(){
     QFile user_log("../config/log");
 
     if(!user_log.open(QFile::ReadOnly | QFile::Text)){
@@ -24,9 +36,6 @@ MainScreen::MainScreen(QWidget *parent) :
 
     setWindowTitle("主界面...");
     ui->label->setText(str.toUtf8());
-}
 
-MainScreen::~MainScreen()
-{
-    delete ui;
+    ui->Pages->setText("1");
 }
