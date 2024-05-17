@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <myjson.h>
+#include <mainscreen.h>
 
 namespace Ui {
 class EnterUI;
@@ -23,6 +24,7 @@ public:
     ~EnterUI();
     void enter();
     void resign();
+    MainScreen mainscreen;
 private:
     Ui::EnterUI *ui;
 };

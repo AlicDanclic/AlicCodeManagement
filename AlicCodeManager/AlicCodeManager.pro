@@ -27,12 +27,14 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    enterui.cpp
+    enterui.cpp \
+    mainscreen.cpp
 
 HEADERS += \
         mainwindow.h \
     enterui.h \
-    myjson.h
+    myjson.h \
+    mainscreen.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -40,4 +42,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    enterui.ui
+    enterui.ui \
+    mainscreen.ui

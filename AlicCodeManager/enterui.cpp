@@ -196,7 +196,20 @@ void EnterUI::enter(){
                     //
                     QMessageBox::information(nullptr,"test","登陆成功",QMessageBox::Yes,QMessageBox::Yes);
 
+                    QFile Save_log("../config/log");
+
+                    if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
+                        qDebug()<< "Error 1231 : can't open error";
+                        return ;
+                    }
+
+                    Save_log.write(username.toUtf8());
+
+                    Save_log.close();
+
                     this->close();
+
+                    mainscreen.show();
 
                 }
                 else{
