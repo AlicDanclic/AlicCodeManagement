@@ -1061,7 +1061,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1178,6 +1178,19 @@
    </property>
    <property name="text">
     <string>搜索</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="EnterButton">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>60</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>载入</string>
    </property>
   </widget>
  </widget>

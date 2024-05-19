@@ -27,17 +27,28 @@ public:
     explicit MainScreen(QWidget *parent = nullptr);
     ~MainScreen();
     void CreateScreen();
-    void NextPage();
-    void LastPage();
-    void Addnew();
     void show_inf();
     void _read();
+
+    void NextPage();
+    void LastPage();
+
+    void Addnew();
+    void Delete(int No);
+    void Get(int No);
+
+    void Exit_Save();
+
 private:
+    QString NullContent = "";
     Ui::MainScreen *ui;
     int pages;
     int max_pages;
     int sizes;
     std::vector<QUser> user;
+    int QAQ;
+    void Encode(QString text);
+    void Decode(QString code);
 };
 
 #endif // MAINSCREEN_H
