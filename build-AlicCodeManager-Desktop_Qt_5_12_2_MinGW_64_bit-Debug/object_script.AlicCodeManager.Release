@@ -1,0 +1,11 @@
+release/main.o
+release/mainwindow.o
+release/enterui.o
+release/mainscreen.o
+release/add.o
+release/change.o
+release/moc_mainwindow.o
+release/moc_enterui.o
+release/moc_mainscreen.o
+release/moc_add.o
+release/moc_change.o

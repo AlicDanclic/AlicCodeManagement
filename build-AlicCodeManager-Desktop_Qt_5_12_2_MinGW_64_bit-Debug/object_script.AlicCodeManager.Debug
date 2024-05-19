@@ -1,0 +1,11 @@
+debug/main.o
+debug/mainwindow.o
+debug/enterui.o
+debug/mainscreen.o
+debug/add.o
+debug/change.o
+debug/moc_mainwindow.o
+debug/moc_enterui.o
+debug/moc_mainscreen.o
+debug/moc_add.o
+debug/moc_change.o

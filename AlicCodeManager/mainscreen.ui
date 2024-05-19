@@ -1144,7 +1144,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QPushButton" name="Addnew">
+  <widget class="QPushButton" name="_Addnew">
    <property name="geometry">
     <rect>
      <x>30</x>

@@ -28,13 +28,17 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     enterui.cpp \
-    mainscreen.cpp
+    mainscreen.cpp \
+    add.cpp \
+    change.cpp
 
 HEADERS += \
         mainwindow.h \
     enterui.h \
     myjson.h \
-    mainscreen.h
+    mainscreen.h \
+    add.h \
+    change.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -43,4 +47,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 FORMS += \
     enterui.ui \
-    mainscreen.ui
+    mainscreen.ui \
+    add.ui \
+    change.ui

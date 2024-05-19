@@ -9,7 +9,8 @@
 #include <QVector>
 #include <QFrame>
 #include "myjson.h"
-
+#include "add.h"
+#include "change.h"
 
 struct QUser{
     QString _url;
@@ -37,19 +38,29 @@ public:
 
     void Addnew();
     void Delete(int No);
+    void Change(int No);
     void Get(int No);
 
     void Exit_Save();
 
+    void _Search(QString src);
+
 private:
-    QString NullContent = "";
     Ui::MainScreen *ui;
+
+    ChangeUi changeui;
+    Add addui;
+
+    QString NullContent = "";
+    QString Username;
+
     int pages;
     int max_pages;
     int sizes;
-    std::vector<QUser> user;
     int QAQ;
-    QString Username;
+
+    std::vector<QUser> user;
+
     QString encode(QString src);
     QString decode(QString src);
 };
