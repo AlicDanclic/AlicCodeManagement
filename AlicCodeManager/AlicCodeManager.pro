@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += testlib
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = AlicCodeManager
@@ -29,16 +29,16 @@ SOURCES += \
         mainwindow.cpp \
     enterui.cpp \
     mainscreen.cpp \
-    add.cpp \
-    change.cpp
+    add_new_information.cpp \
+    delete_information.cpp
 
 HEADERS += \
         mainwindow.h \
     enterui.h \
     myjson.h \
     mainscreen.h \
-    add.h \
-    change.h
+    add_new_information.h \
+    delete_information.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -48,5 +48,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 FORMS += \
     enterui.ui \
     mainscreen.ui \
-    add.ui \
-    change.ui
+    add_new_information.ui \
+    delete_information.ui

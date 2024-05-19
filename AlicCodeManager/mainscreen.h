@@ -2,6 +2,7 @@
 #define MAINSCREEN_H
 
 #include <QWidget>
+#include <QTest>
 #include <QFile>
 #include <QtDebug>
 #include <QClipboard>
@@ -9,8 +10,8 @@
 #include <QVector>
 #include <QFrame>
 #include "myjson.h"
-#include "add.h"
-#include "change.h"
+#include "add_new_information.h"
+#include "delete_information.h"
 
 struct QUser{
     QString _url;
@@ -48,8 +49,8 @@ public:
 private:
     Ui::MainScreen *ui;
 
-    ChangeUi changeui;
-    Add addui;
+    Delete_Information changeui;
+    Add_New_Information addui;
 
     QString NullContent = "";
     QString Username;

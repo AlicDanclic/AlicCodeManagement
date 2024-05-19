@@ -236,11 +236,12 @@ Makefile: ../AlicCodeManager/AlicCodeManager.pro ../../../Qt5.12.2/5.12.2/mingw7
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/qt.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/resources.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/moc.prf \
+		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/testlib_defines.prf \
+		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/console.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/opengl.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/uic.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/qmake_use.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/file_copies.prf \
-		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/windows.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/testcase_targets.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/exceptions.prf \
 		../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/yacc.prf \
@@ -248,8 +249,8 @@ Makefile: ../AlicCodeManager/AlicCodeManager.pro ../../../Qt5.12.2/5.12.2/mingw7
 		../AlicCodeManager/AlicCodeManager.pro \
 		../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Widgets.prl \
 		../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Gui.prl \
-		../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Core.prl \
-		../../../Qt5.12.2/5.12.2/mingw73_64/lib/qtmaind.prl
+		../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Test.prl \
+		../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile ..\AlicCodeManager\AlicCodeManager.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/spec_pre.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/qdevice.pri:
@@ -424,11 +425,12 @@ Makefile: ../AlicCodeManager/AlicCodeManager.pro ../../../Qt5.12.2/5.12.2/mingw7
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/qt.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/resources.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/moc.prf:
+../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/testlib_defines.prf:
+../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/console.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/opengl.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/uic.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/qmake_use.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/file_copies.prf:
-../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/win32/windows.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/testcase_targets.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/exceptions.prf:
 ../../../Qt5.12.2/5.12.2/mingw73_64/mkspecs/features/yacc.prf:
@@ -436,8 +438,8 @@ Makefile: ../AlicCodeManager/AlicCodeManager.pro ../../../Qt5.12.2/5.12.2/mingw7
 ../AlicCodeManager/AlicCodeManager.pro:
 ../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Widgets.prl:
 ../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Gui.prl:
+../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Test.prl:
 ../../../Qt5.12.2/5.12.2/mingw73_64/lib/Qt5Core.prl:
-../../../Qt5.12.2/5.12.2/mingw73_64/lib/qtmaind.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\AlicCodeManager\AlicCodeManager.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 

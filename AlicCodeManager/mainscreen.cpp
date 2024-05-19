@@ -376,9 +376,7 @@ void MainScreen::NextPage(){
 }
 
 void MainScreen::Addnew(){
-    addui.show();
-
-    while(addui.isVisible());
+    addui.exec();
 
     QString path = "../config/log_1";
 
@@ -432,9 +430,7 @@ void MainScreen::Addnew(){
 }
 
 void MainScreen::Change(int No){
-    changeui.show();
-
-    while(changeui.isVisible());
+    changeui.exec();
 
     QString path = "../config/log_1";
 
