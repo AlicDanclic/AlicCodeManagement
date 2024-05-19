@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include <QVector>
 #include <QFrame>
+#include "myjson.h"
+
 
 struct QUser{
     QString _url;
@@ -47,8 +49,9 @@ private:
     int sizes;
     std::vector<QUser> user;
     int QAQ;
-    void Encode(QString text);
-    void Decode(QString code);
+    QString Username;
+    QString encode(QString src);
+    QString decode(QString src);
 };
 
 #endif // MAINSCREEN_H

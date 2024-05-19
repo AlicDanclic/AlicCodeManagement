@@ -29,6 +29,40 @@ MainScreen::~MainScreen()
     delete ui;
 }
 
+void MainScreen::Get(int No){
+
+}
+
+void MainScreen::Exit_Save(){
+    QString path = "../userinf/";
+    path.append(Username);
+    path.append(".psw");
+
+    QFile passwordFile(path);
+
+    if(!passwordFile.open(QIODevice::WriteOnly | QIODevice::Truncate)){
+        qDebug()<< "Error 1231 : can't open error";
+        return ;
+    }
+
+    QJsonArray _UserArray;
+
+    for(int i = 0; i < sizes;i++){
+        QJsonObject _users;
+        _users.insert("_url",user[i]._url);
+        _users.insert("_user",user[i]._user);
+        _users.insert("_password",user[i]._password);
+
+        _UserArray.append(_users);
+    }
+
+    QJsonDocument docs;
+    docs.setArray(_UserArray);
+
+    passwordFile.write(docs.toJson());
+
+    passwordFile.close();
+}
 
 void MainScreen::CreateScreen(){
     QAQ = 0;
@@ -42,7 +76,7 @@ void MainScreen::CreateScreen(){
     QTextStream stream(&user_log);
     stream.setCodec("UTF-8");
     QString str = stream.readAll();
-
+    Username = str;
     user_log.close();
 
     str = "正在使用的用户:"+str;
@@ -54,21 +88,8 @@ void MainScreen::CreateScreen(){
 }
 
 void MainScreen::_read(){
-    QFile user_log("../config/log");
-
-    if(!user_log.open(QFile::ReadOnly | QFile::Text)){
-        qDebug()<< "Error 1231 : can't open error";
-        return ;
-    }
-
-    QTextStream stream(&user_log);
-    stream.setCodec("UTF-8");
-    QString str = stream.readAll();
-
-    user_log.close();
-
     QString path = "../userinf/";
-    path.append(str);
+    path.append(Username);
     path.append(".psw");
 
     QFile passwordFile(path);
@@ -83,28 +104,47 @@ void MainScreen::_read(){
         return;
     }
 
-    QTextStream _stream(&user_log);
+    QTextStream _stream(&passwordFile);
     _stream.setCodec("UTF-8");
-    QString _str = stream.readAll();
+    QString _str = _stream.readAll();
 
     passwordFile.close();
 
-    int i = 0;
-    QUser user_inf;
+    QJsonParseError jsonError;
 
-    while(stream.atEnd()){
-        if(i == 2){
-            i = 0;
-            user_inf._password = stream.readLine();
+    QJsonDocument doc = QJsonDocument::fromJson(_str.toUtf8(),&jsonError);
+
+    if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
+        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
+        return;
+    }
+
+    QJsonArray userArray;
+
+    userArray = doc.array();
+
+    for(int i = 0;i < userArray.size();i++){
+        QJsonValue value = userArray.at(i);
+
+        switch(value.type()){
+        case QJsonValue::Object:{
+            QJsonObject valueObj = value.toObject();
+            QUser user_inf;
+
+            QJsonValue urlvalue = valueObj.value("_url");
+            QJsonValue uservalue = valueObj.value("_user");
+            QJsonValue passwordvalue = valueObj.value("_password");
+
+            user_inf._url = urlvalue.toString();
+            user_inf._user = uservalue.toString();
+            user_inf._password = passwordvalue.toString();
+
             user.push_back(user_inf);
+            break;
+
         }
-        if(i == 1){
-            i++;
-            user_inf._user = stream.readLine();
-        }
-        if(i == 0){
-            i++;
-            user_inf._url = stream.readLine();
+        default:
+            break;
         }
     }
 
@@ -408,4 +448,17 @@ void MainScreen::show_inf(){
             break;
         }
     }
+}
+
+QString MainScreen::encode(QString src){
+    QByteArray text = src.toLocal8Bit();
+    QByteArray by = text.toBase64();
+    return QString(by);
+}
+
+QString MainScreen::decode(QString src){
+    QByteArray text = src.toLocal8Bit();
+    QByteArray by = text.fromBase64(text);
+    QString str = QString::fromLocal8Bit(by);
+    return str;
 }
