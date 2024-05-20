@@ -282,8 +282,8 @@ void MainScreen::CreateScreen(){
 
     setWindowTitle("主界面...");
     ui->label->setText(str.toUtf8());
-    pages = 1;
-    ui->Pages->setText(static_cast<QString>(pages));
+    MainScreen::pages = 1;
+    ui->Pages->setText(static_cast<QString>(MainScreen::pages));
 }
 
 void MainScreen::_read(){
@@ -355,12 +355,12 @@ void MainScreen::_read(){
 
 void MainScreen::LastPage(){
     if(pages-1 <= 0){
-        pages--;
-        show_inf();
-    }
-    else{
         QMessageBox::information(nullptr,"Error 1233","已经到顶了",QMessageBox::Yes,QMessageBox::Yes);
         return;
+    }
+    else{
+        pages--;
+        show_inf();
     }
 }
 
@@ -391,37 +391,34 @@ void MainScreen::Addnew(){
     stream.setCodec("UTF-8");
     QString str = stream.readAll();
 
+    QString line;
+
+    line = stream.readLine();
+    qDebug() << line;
+
+    QUser user_inf;
+
+    user_inf._url = line.toUtf8();
+
+    int i = 1;
+
+
+
+    while(!line.isNull())
+    {
+        line=stream.readLine();
+        if(i == 1){
+            user_inf._user = line.toUtf8();
+        }
+        else if (i == 2) {
+            user_inf._password = line.toUtf8();
+        }
+
+    }
+
     File.close();
 
-    QJsonParseError jsonError;
-
-    QJsonDocument doc = QJsonDocument::fromJson(str.toUtf8(),&jsonError);
-
-    if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
-        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
-        return;
-    }
-
-    QJsonArray userArray;
-
-    userArray = doc.array();
-
-    QJsonValue value = userArray.at(0);
-
-    switch (value.type()) {
-    case QJsonValue::Object:{
-        QJsonObject valueObj = value.toObject();
-        QUser user_inf;
-
-        user_inf._url = valueObj.value("_url").toString();
-        user_inf._user = valueObj.value("_user").toString();
-        user_inf._password = encode(valueObj.value("_password").toString());
-
-        user.push_back(user_inf);
-    }
-    default:
-        break;
-    }
+    user.push_back(user_inf);
 
     sizes++;
     max_pages = (sizes+9)/10;
@@ -432,7 +429,7 @@ void MainScreen::Addnew(){
 void MainScreen::Change(int No){
     changeui.exec();
 
-    QString path = "../config/log_1";
+    QString path = "../config/log_2";
 
     QFile File(path);
 
@@ -445,38 +442,30 @@ void MainScreen::Change(int No){
     stream.setCodec("UTF-8");
     QString str = stream.readAll();
 
-    File.close();
+    QString line;
 
-    QJsonParseError jsonError;
-
-    QJsonDocument doc = QJsonDocument::fromJson(str.toUtf8(),&jsonError);
-
-    if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
-        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
-        return;
-    }
-
-    QJsonArray userArray;
-
-    userArray = doc.array();
-
-    QJsonValue value = userArray.at(0);
+    line = stream.readLine();
+    qDebug() << line;
 
     QUser user_inf;
 
-    switch (value.type()) {
-    case QJsonValue::Object:{
-        QJsonObject valueObj = value.toObject();
+    user_inf._url = line.toUtf8();
 
+    int i = 1;
 
-        user_inf._url = valueObj.value("_url").toString();
-        user_inf._user = valueObj.value("_user").toString();
-        user_inf._password = encode(valueObj.value("_password").toString());
+    while(!line.isNull())
+    {
+        line=stream.readLine();
+        if(i == 1){
+            user_inf._user = line.toUtf8();
+        }
+        else if (i == 2) {
+            user_inf._password = line.toUtf8();
+        }
+
     }
-    default:
-        break;
-    }
 
+    File.close();
     user[pages*10-10+No] = user_inf;
 
     show_inf();
@@ -505,7 +494,7 @@ void MainScreen::Delete(int No){
 
 void MainScreen::show_inf(){
     int start = (pages-1)*10;
-    int end = std::min(pages*10,sizes);
+    int end = std::min(pages*10,MainScreen::sizes);
     int p = 0;
     for(int i = start;i < end;i++,p++){
         switch (p) {
@@ -793,19 +782,6 @@ void MainScreen::show_inf(){
     }
 
     ui->Pages->setText(QString::number(pages).toUtf8());
-}
-
-QString MainScreen::encode(QString src){
-    QByteArray text = src.toLocal8Bit();
-    QByteArray by = text.toBase64();
-    return QString(by);
-}
-
-QString MainScreen::decode(QString src){
-    QByteArray text = src.toLocal8Bit();
-    QByteArray by = text.fromBase64(text);
-    QString str = QString::fromLocal8Bit(by);
-    return str;
 }
 
 void MainScreen::_Search(QString src){

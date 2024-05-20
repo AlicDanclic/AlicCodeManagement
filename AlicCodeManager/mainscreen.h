@@ -10,6 +10,7 @@
 #include <QVector>
 #include <QFrame>
 #include "myjson.h"
+#include "code.h"
 #include "add_new_information.h"
 #include "delete_information.h"
 
@@ -46,9 +47,6 @@ public:
 
     void _Search(QString src);
 
-private:
-    Ui::MainScreen *ui;
-
     Delete_Information changeui;
     Add_New_Information addui;
 
@@ -61,9 +59,10 @@ private:
     int QAQ;
 
     std::vector<QUser> user;
+private:
+    Ui::MainScreen *ui;
 
-    QString encode(QString src);
-    QString decode(QString src);
+
 };
 
 #endif // MAINSCREEN_H

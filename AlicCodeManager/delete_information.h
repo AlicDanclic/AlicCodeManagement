@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QDebug>
 #include "myjson.h"
+#include "code.h"
 
 namespace Ui {
 class Delete_Information;

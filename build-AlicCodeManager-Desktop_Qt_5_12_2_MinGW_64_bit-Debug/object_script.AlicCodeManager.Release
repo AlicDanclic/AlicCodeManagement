@@ -4,6 +4,7 @@ release/enterui.o
 release/mainscreen.o
 release/add_new_information.o
 release/delete_information.o
+release/code.o
 release/moc_mainwindow.o
 release/moc_enterui.o
 release/moc_mainscreen.o

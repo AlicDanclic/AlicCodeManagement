@@ -9,6 +9,7 @@ Add_New_Information::Add_New_Information(QWidget *parent) :
 
     connect(ui->pushButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
        Add_New_Information();
+       this->close();
     });
 
 }
@@ -18,30 +19,24 @@ Add_New_Information::~Add_New_Information()
     delete ui;
 }
 
+
+
 void Add_New_Information::add_new_information_to_log(){
 
-    QJsonArray user;
+    QString urlval = ui->urlvalue->text().toUtf8();
+    QString userval = ui->uservalue->text().toUtf8();
+    QString passwordval = encode(ui->passwordvalue->text()).toUtf8();
 
-    QJsonObject user_inf;
-    user_inf.insert("_url",ui->urlvalue->text());
-    user_inf.insert("_user",ui->uservalue->text());
-    user_inf.insert("_password",ui->passwordvalue->text());
+    QFile Save_log("../config/log_1");
 
-    user.append(user_inf);
-
-    QJsonDocument docs;
-    docs.setArray(user);
-
-    QFile file("../config/log_1");
-
-    if(!file.open(QIODevice::WriteOnly | QIODevice::Truncate)){
+    if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
         return;
     }
 
-    file.write(docs.toJson());
-    file.close();
+    Save_log.write((urlval+"\n"+userval+"\n"+passwordval).toUtf8());
 
-    this->close();
+    Save_log.close();
 
-    return;
 }
+
+
