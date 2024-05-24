@@ -1,5 +1,7 @@
 #include "add_new_information.h"
 #include "ui_add_new_information.h"
+#include "QMessageBox"
+
 
 Add_New_Information::Add_New_Information(QWidget *parent) :
     QDialog(parent),
@@ -9,6 +11,7 @@ Add_New_Information::Add_New_Information(QWidget *parent) :
 
     connect(ui->pushButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
        Add_New_Information();
+
        this->close();
     });
 
@@ -36,6 +39,7 @@ void Add_New_Information::add_new_information_to_log(){
     Save_log.write((urlval+"\n"+userval+"\n"+passwordval).toUtf8());
 
     Save_log.close();
+    QMessageBox(nullptr,"Test",urlval+"\n"+userval+"\n"+passwordval,QMessageBox::Yes,QMessageBox::Yes);
 
 }
 

@@ -782,6 +782,71 @@ void MainScreen::show_inf(){
     }
 
     ui->Pages->setText(QString::number(pages).toUtf8());
+
+    ui->Pages->repaint();
+
+    ui->NO_1->repaint();
+
+    ui->Url_1->repaint();
+    ui->Name_1->repaint();
+    ui->PassWord_1->repaint();
+
+    ui->NO_2->repaint();
+
+    ui->Url_2->repaint();
+    ui->Name_2->repaint();
+    ui->PassWord_2->repaint();
+
+    ui->NO_3->repaint();
+
+    ui->Url_3->repaint();
+    ui->Name_3->repaint();
+    ui->PassWord_3->repaint();
+
+    ui->NO_4->repaint();
+
+    ui->Url_4->repaint();
+    ui->Name_4->repaint();
+    ui->PassWord_4->repaint();
+
+    ui->NO_5->repaint();
+
+    ui->Url_5->repaint();
+    ui->Name_5->repaint();
+    ui->PassWord_5->repaint();
+
+    ui->NO_6->repaint();
+
+    ui->Url_6->repaint();
+    ui->Name_6->repaint();
+    ui->PassWord_6->repaint();
+
+    ui->NO_7->repaint();
+
+    ui->Url_7->repaint();
+    ui->Name_7->repaint();
+    ui->PassWord_7->repaint();
+
+    ui->NO_8->repaint();
+
+    ui->Url_8->repaint();
+    ui->Name_8->repaint();
+    ui->PassWord_8->repaint();
+
+    ui->NO_9->repaint();
+
+    ui->Url_9->repaint();
+    ui->Name_9->repaint();
+    ui->PassWord_9->repaint();
+
+    ui->NO_10->repaint();
+
+    ui->Url_10->repaint();
+    ui->Name_10->repaint();
+    ui->PassWord_10->repaint();
+
+
+
 }
 
 void MainScreen::_Search(QString src){

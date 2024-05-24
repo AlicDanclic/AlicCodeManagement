@@ -31,7 +31,8 @@ SOURCES += \
     mainscreen.cpp \
     add_new_information.cpp \
     delete_information.cpp \
-    code.cpp
+    code.cpp \
+    file.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     mainscreen.h \
     add_new_information.h \
     delete_information.h \
-    code.h
+    code.h \
+    file.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
