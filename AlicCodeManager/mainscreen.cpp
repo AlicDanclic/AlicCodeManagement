@@ -387,33 +387,34 @@ void MainScreen::Addnew(){
         return;
     }
 
-    QTextStream stream(&File);
-    stream.setCodec("UTF-8");
-    QString str = stream.readAll();
-
-    QString line;
-
-    line = stream.readLine();
-    qDebug() << line;
-
     QUser user_inf;
 
-    user_inf._url = line.toUtf8();
+    int i = 0;
 
-    int i = 1;
+    while(!File.atEnd()){
+        QByteArray line = File.readLine();
+        QString strings="";
+        strings.prepend(line);
 
-
-
-    while(!line.isNull())
-    {
-        line=stream.readLine();
-        if(i == 1){
-            user_inf._user = line.toUtf8();
+        switch (i) {
+        case 0:{
+            user_inf._url = strings;
+            i++;
+            break;
         }
-        else if (i == 2) {
-            user_inf._password = line.toUtf8();
+        case 1:{
+            user_inf._user = strings;
+            i++;
+            break;
         }
-
+        case 2:{
+            user_inf._password = strings;
+            i++;
+            break;
+        }
+        default:
+            break;
+        }
     }
 
     File.close();
@@ -438,31 +439,34 @@ void MainScreen::Change(int No){
         return;
     }
 
-    QTextStream stream(&File);
-    stream.setCodec("UTF-8");
-    QString str = stream.readAll();
-
-    QString line;
-
-    line = stream.readLine();
-    qDebug() << line;
-
     QUser user_inf;
 
-    user_inf._url = line.toUtf8();
+    int i = 0;
 
-    int i = 1;
+    while(!File.atEnd()){
+        QByteArray line = File.readLine();
+        QString strings="";
+        strings.prepend(line);
 
-    while(!line.isNull())
-    {
-        line=stream.readLine();
-        if(i == 1){
-            user_inf._user = line.toUtf8();
+        switch (i) {
+        case 0:{
+            user_inf._url = strings;
+            i++;
+            break;
         }
-        else if (i == 2) {
-            user_inf._password = line.toUtf8();
+        case 1:{
+            user_inf._user = strings;
+            i++;
+            break;
         }
-
+        case 2:{
+            user_inf._password = strings;
+            i++;
+            break;
+        }
+        default:
+            break;
+        }
     }
 
     File.close();
@@ -783,8 +787,19 @@ void MainScreen::show_inf(){
 
     ui->Pages->setText(QString::number(pages).toUtf8());
 
-    ui->Pages->repaint();
+    updata();
+}
 
+void MainScreen::_Search(QString src){
+    //仅支持Url搜索
+
+    QMessageBox::information(nullptr,"Sorry","搜索还没完成",QMessageBox::Yes,QMessageBox::Yes);
+    qDebug() << src;
+    return;
+}
+
+
+void MainScreen::updata(){
     ui->NO_1->repaint();
 
     ui->Url_1->repaint();
@@ -845,14 +860,5 @@ void MainScreen::show_inf(){
     ui->Name_10->repaint();
     ui->PassWord_10->repaint();
 
-
-
-}
-
-void MainScreen::_Search(QString src){
-    //仅支持Url搜索
-
-    QMessageBox::information(nullptr,"Sorry","搜索还没完成",QMessageBox::Yes,QMessageBox::Yes);
-    qDebug() << src;
-    return;
+    ui->Pages->repaint();
 }

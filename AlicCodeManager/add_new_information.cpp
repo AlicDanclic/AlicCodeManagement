@@ -10,7 +10,7 @@ Add_New_Information::Add_New_Information(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->pushButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
-       Add_New_Information();
+       Add_New_Information::add_new_information_to_log();
 
        this->close();
     });
@@ -26,9 +26,9 @@ Add_New_Information::~Add_New_Information()
 
 void Add_New_Information::add_new_information_to_log(){
 
-    QString urlval = ui->urlvalue->text().toUtf8();
-    QString userval = ui->uservalue->text().toUtf8();
-    QString passwordval = encode(ui->passwordvalue->text()).toUtf8();
+    QString urlval = ui->urlvalue->text();
+    QString userval = ui->uservalue->text();
+    QString passwordval = encode(ui->passwordvalue->text());
 
     QFile Save_log("../config/log_1");
 
@@ -39,8 +39,6 @@ void Add_New_Information::add_new_information_to_log(){
     Save_log.write((urlval+"\n"+userval+"\n"+passwordval).toUtf8());
 
     Save_log.close();
-    QMessageBox(nullptr,"Test",urlval+"\n"+userval+"\n"+passwordval,QMessageBox::Yes,QMessageBox::Yes);
-
 }
 
 

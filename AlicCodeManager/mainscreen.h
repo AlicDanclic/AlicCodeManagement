@@ -34,6 +34,7 @@ public:
     void CreateScreen();
     void show_inf();
     void _read();
+    void updata();
 
     void NextPage();
     void LastPage();
