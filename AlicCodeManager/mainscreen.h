@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QTest>
 #include <QFile>
-#include <QtDebug>
 #include <QClipboard>
 #include <QMessageBox>
 #include <QVector>
@@ -53,6 +52,8 @@ public:
 
     QString NullContent = "";
     QString Username;
+
+    QString Root;
 
     int pages;
     int max_pages;

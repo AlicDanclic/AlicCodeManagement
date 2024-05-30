@@ -23,7 +23,9 @@ void Delete_Information::Change_Information(){
     QString userval = ui->uservalue->text().toUtf8();
     QString passwordval = encode(ui->passwordvalue->text()).toUtf8();
 
-    QFile Save_log("../config/log_2");
+    QString Root = QDir::currentPath();
+
+    QFile Save_log(Root+"/config/log_2");
 
     if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
         return;

@@ -38,11 +38,13 @@ void EnterUI::resign(){
         return;
     }
 
+    QString Root = QDir::currentPath();
+
     QJsonArray userArray;
 
-    QFile file("../config/log.json");
+    QFile file(Root+"/config/log.json");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return ;
     }
 
@@ -50,7 +52,7 @@ void EnterUI::resign(){
     stream.setCodec("UTF-8");
     QString str = stream.readAll();
 
-    QString newpath = "../userinf/";
+    QString newpath = Root+"/userinf/";
 
     file.close();
 
@@ -69,7 +71,7 @@ void EnterUI::resign(){
         QJsonDocument docs;
         docs.setArray(userArray);
 
-        QFile files("../config/log.json");
+        QFile files(Root+"/config/log.json");
 
         if(!files.open(QIODevice::WriteOnly | QIODevice::Truncate)){
             QMessageBox::information(nullptr,"Error 1233","文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
@@ -130,7 +132,7 @@ void EnterUI::resign(){
     QJsonDocument docs;
     docs.setArray(userArray);
 
-    QFile files("../config/log.json");
+    QFile files(Root + "/config/log.json");
     if(!files.open(QIODevice::WriteOnly | QIODevice::Truncate)){
         QMessageBox::information(nullptr,"Error 1233","文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
         return;
@@ -159,9 +161,11 @@ void EnterUI::enter(){
 
     QJsonArray userArray;
 
-    QFile file("../config/log.json");
+    QString Root = QDir::currentPath();
+
+    QFile file(Root+"/config/log.json");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return ;
     }
 
@@ -196,10 +200,10 @@ void EnterUI::enter(){
                     //
                     QMessageBox::information(nullptr,"test","登陆成功",QMessageBox::Yes,QMessageBox::Yes);
 
-                    QFile Save_log("../config/log");
+                    QFile Save_log(Root+"/config/log");
 
                     if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-                        qDebug()<< "Error 1231 : can't open error";
+                        //qDebug()<< "Error 1231 : can't open error";
                         return ;
                     }
 

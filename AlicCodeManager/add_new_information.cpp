@@ -30,7 +30,9 @@ void Add_New_Information::add_new_information_to_log(){
     QString userval = ui->uservalue->text();
     QString passwordval = encode(ui->passwordvalue->text());
 
-    QFile Save_log("../config/log_1");
+    QString Root = QDir::currentPath();
+
+    QFile Save_log(Root+"/config/log_1");
 
     if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
         return;

@@ -8,5 +8,6 @@
 #include <QJsonValue>
 #include <QJsonValuePtr>
 #include <QJsonValueRef>
+#include <QDir>
 
 #endif // MYJSON_H

@@ -9,6 +9,8 @@ MainScreen::MainScreen(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    MainScreen::Root = QDir::currentPath();
+
     CreateScreen();
 
     connect(ui->EnterButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
@@ -18,7 +20,7 @@ MainScreen::MainScreen(QWidget *parent) :
             QAQ = 1;
         }
         else{
-             qDebug()<< "Error 1231 : can't open error";
+             //qDebug()<< "Error 1231 : can't open error";
         }
     });
 
@@ -231,14 +233,14 @@ void MainScreen::Get(int No){
 }
 
 void MainScreen::Exit_Save(){
-    QString path = "../userinf/";
+    QString path = MainScreen::Root+"/userinf/";
     path.append(Username);
     path.append(".psw");
 
     QFile passwordFile(path);
 
     if(!passwordFile.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return ;
     }
 
@@ -265,10 +267,10 @@ void MainScreen::Exit_Save(){
 
 void MainScreen::CreateScreen(){
     QAQ = 0;
-    QFile user_log("../config/log");
+    QFile user_log(MainScreen::Root+"/config/log");
 
     if(!user_log.open(QFile::ReadOnly | QFile::Text)){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return ;
     }
 
@@ -287,19 +289,19 @@ void MainScreen::CreateScreen(){
 }
 
 void MainScreen::_read(){
-    QString path = "../userinf/";
+    QString path = MainScreen::Root+"/userinf/";
     path.append(Username);
     path.append(".psw");
 
     QFile passwordFile(path);
 
     if(!passwordFile.open(QFile::ReadOnly | QFile::Text)){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return ;
     }
 
     if(passwordFile.size() == 0){
-        qDebug()<< "Error 1231 : can't open error";
+        //qDebug()<< "Error 1231 : can't open error";
         return;
     }
 
@@ -378,12 +380,12 @@ void MainScreen::NextPage(){
 void MainScreen::Addnew(){
     addui.exec();
 
-    QString path = "../config/log_1";
+    QString path = MainScreen::Root+"/config/log_1";
 
     QFile File(path);
 
     if(!File.open(QFile::ReadOnly | QFile::Text)){
-        qDebug() << "Error 1231";
+        //qDebug() << "Error 1231";
         return;
     }
 
@@ -430,12 +432,12 @@ void MainScreen::Addnew(){
 void MainScreen::Change(int No){
     changeui.exec();
 
-    QString path = "../config/log_2";
+    QString path = MainScreen::Root+"/config/log_2";
 
     QFile File(path);
 
     if(!File.open(QFile::ReadOnly | QFile::Text)){
-        qDebug() << "Error 1231";
+        //qDebug() << "Error 1231";
         return;
     }
 
@@ -794,7 +796,7 @@ void MainScreen::_Search(QString src){
     //仅支持Url搜索
 
     QMessageBox::information(nullptr,"Sorry","搜索还没完成",QMessageBox::Yes,QMessageBox::Yes);
-    qDebug() << src;
+    //qDebug() << src;
     return;
 }
 

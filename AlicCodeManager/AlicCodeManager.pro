@@ -5,7 +5,11 @@
 #-------------------------------------------------
 
 QT       += core gui
+
 QT       += testlib
+
+QT.testlib.CONFIG -= console
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = AlicCodeManager
@@ -52,3 +56,4 @@ FORMS += \
     mainscreen.ui \
     add_new_information.ui \
     delete_information.ui
+

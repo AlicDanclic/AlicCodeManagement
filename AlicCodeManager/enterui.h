@@ -6,7 +6,6 @@
 #include <QString>
 #include <fstream>
 #include <QFile>
-#include <QDebug>
 #include <QMessageBox>
 #include <myjson.h>
 #include <mainscreen.h>
