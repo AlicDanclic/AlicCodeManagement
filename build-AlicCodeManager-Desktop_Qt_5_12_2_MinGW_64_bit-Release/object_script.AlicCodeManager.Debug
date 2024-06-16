@@ -1,0 +1,12 @@
+debug/main.o
+debug/mainwindow.o
+debug/enterui.o
+debug/mainscreen.o
+debug/add_new_information.o
+debug/delete_information.o
+debug/code.o
+debug/moc_mainwindow.o
+debug/moc_enterui.o
+debug/moc_mainscreen.o
+debug/moc_add_new_information.o
+debug/moc_delete_information.o

@@ -8,6 +8,7 @@ EnterUI::EnterUI(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowTitle("AlicCodeManger欢迎你!");
+    this->setWindowIcon(QIcon(QDir::currentPath()+"/resource/picture/Icon.ico"));
 /*
     QPalette pal = this->palette();
     pal.setBrush(QPalette::Background,QBrush(QPixmap(":/resource/picture/Sexy Blue.jpg")));

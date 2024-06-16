@@ -11,6 +11,26 @@ MainScreen::MainScreen(QWidget *parent) :
 
     MainScreen::Root = QDir::currentPath();
 
+    menu = new QMenu(this);
+    QIcon icon(MainScreen::Root+"/resource/picture/Icon.ico");
+    SysIcon = new QSystemTrayIcon(this);
+    SysIcon->setIcon(icon);
+    SysIcon->setToolTip("AlicCodeManager");
+    Reset = new QAction("回复",this);
+    connect(Reset,&QAction::triggered,this,&MainScreen::showNormal);
+
+    Quit = new QAction("关闭",this);
+    connect(Quit,&QAction::triggered,qApp,&QApplication::quit);
+    connect(SysIcon,&QSystemTrayIcon::activated,this,&MainScreen::on_activatedSysTrayIcon);
+
+    //menu
+    menu->addAction(Reset);
+    menu->addAction(Quit);
+    SysIcon->setContextMenu(menu);
+    SysIcon->show();
+
+    this->setWindowIcon(icon);
+
     CreateScreen();
 
     connect(ui->EnterButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
@@ -35,11 +55,15 @@ MainScreen::MainScreen(QWidget *parent) :
     connect(ui->_Addnew,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
         Addnew();
     });
-
+/*
     connect(ui->Search,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
         _Search(ui->lineEdit->text());
     });
 
+    connect(ui->OutSearch,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
+        OutSearch();
+    });
+*/
     connect(ui->ExitBUtton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
         Exit_Save();
     });
@@ -174,6 +198,30 @@ MainScreen::~MainScreen()
     delete ui;
 }
 
+void MainScreen::closeEvent(QCloseEvent *event){
+    QMessageBox::StandardButton btn = QMessageBox::question(this,"提示","是否最小化到系统托盘",QMessageBox::Yes|QMessageBox::No,QMessageBox::Yes);
+
+    if(btn == QMessageBox::Yes){
+        this->hide();
+        SysIcon->showMessage("AlicCodeManager","Test");
+        event->ignore();
+    }
+    else{
+        event->accept();
+    }
+}
+
+void MainScreen::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason){
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        this->show();break;
+    default:
+        break;
+    }
+}
+
 void MainScreen::Get(int No){
     QClipboard *pClip = QApplication::clipboard();
     switch (No) {
@@ -266,6 +314,8 @@ void MainScreen::Exit_Save(){
 }
 
 void MainScreen::CreateScreen(){
+    MainScreen::modes = 0;
+
     QAQ = 0;
     QFile user_log(MainScreen::Root+"/config/log");
 
@@ -499,308 +549,616 @@ void MainScreen::Delete(int No){
 }
 
 void MainScreen::show_inf(){
-    int start = (pages-1)*10;
-    int end = std::min(pages*10,MainScreen::sizes);
-    int p = 0;
-    for(int i = start;i < end;i++,p++){
-        switch (p) {
-        case 0:{
-            ui->NO_1->setText("1");
 
-            ui->Url_1->setText(user[i]._url);
-            ui->Name_1->setText(user[i]._user);
-            ui->PassWord_1->setText(user[i]._password);
 
-            ui->Get_1->setVisible(1);
-            ui->Change_1->setVisible(1);
-            ui->Delete_1->setVisible(1);
+    if(modes == 1){
+        int start = (pages-1)*10;
+        int end = std::min(pages*10,static_cast<int>(Search_vec.size()));
+        int p = 0;
+        for(int i = start;i < end;i++,p++){
+            switch (p) {
+            case 0:{
+                ui->NO_1->setText("1");
 
-            break;
+                ui->Url_1->setText(Search_vec[i]._url);
+                ui->Name_1->setText(Search_vec[i]._user);
+                ui->PassWord_1->setText(Search_vec[i]._password);
+
+                ui->Get_1->setVisible(1);
+                ui->Change_1->setVisible(1);
+                ui->Delete_1->setVisible(1);
+
+                break;
+            }
+            case 1:{
+                ui->NO_2->setText("2");
+
+                ui->Url_2->setText(Search_vec[i]._url);
+                ui->Name_2->setText(Search_vec[i]._user);
+                ui->PassWord_2->setText(Search_vec[i]._password);
+
+                ui->Get_2->setVisible(1);
+                ui->Change_2->setVisible(1);
+                ui->Delete_2->setVisible(1);
+
+                break;
+            }
+            case 2:{
+                ui->NO_3->setText("3");
+
+                ui->Url_3->setText(Search_vec[i]._url);
+                ui->Name_3->setText(Search_vec[i]._user);
+                ui->PassWord_3->setText(Search_vec[i]._password);
+
+                ui->Get_3->setVisible(1);
+                ui->Change_3->setVisible(1);
+                ui->Delete_3->setVisible(1);
+
+                break;
+            }
+            case 3:{
+                ui->NO_4->setText("4");
+
+                ui->Url_4->setText(Search_vec[i]._url);
+                ui->Name_4->setText(Search_vec[i]._user);
+                ui->PassWord_4->setText(Search_vec[i]._password);
+
+                ui->Get_4->setVisible(1);
+                ui->Change_4->setVisible(1);
+                ui->Delete_4->setVisible(1);
+
+                break;
+            }
+            case 4:{
+                ui->NO_5->setText("5");
+
+                ui->Url_5->setText(Search_vec[i]._url);
+                ui->Name_5->setText(Search_vec[i]._user);
+                ui->PassWord_5->setText(Search_vec[i]._password);
+
+                ui->Get_5->setVisible(1);
+                ui->Change_5->setVisible(1);
+                ui->Delete_5->setVisible(1);
+
+                break;
+            }
+
+            case 5:{
+                ui->NO_6->setText("6");
+
+                ui->Url_6->setText(Search_vec[i]._url);
+                ui->Name_6->setText(Search_vec[i]._user);
+                ui->PassWord_6->setText(Search_vec[i]._password);
+
+                ui->Get_6->setVisible(1);
+                ui->Change_6->setVisible(1);
+                ui->Delete_6->setVisible(1);
+
+                break;
+            }
+
+            case 6:{
+                ui->NO_7->setText("7");
+
+                ui->Url_7->setText(Search_vec[i]._url);
+                ui->Name_7->setText(Search_vec[i]._user);
+                ui->PassWord_7->setText(Search_vec[i]._password);
+
+                ui->Get_7->setVisible(1);
+                ui->Change_7->setVisible(1);
+                ui->Delete_7->setVisible(1);
+
+                break;
+            }
+
+            case 7:{
+                ui->NO_8->setText("8");
+
+                ui->Url_8->setText(Search_vec[i]._url);
+                ui->Name_8->setText(Search_vec[i]._user);
+                ui->PassWord_8->setText(Search_vec[i]._password);
+
+                ui->Get_8->setVisible(1);
+                ui->Change_8->setVisible(1);
+                ui->Delete_8->setVisible(1);
+
+                break;
+            }
+
+            case 8:{
+                ui->NO_9->setText("9");
+
+                ui->Url_9->setText(Search_vec[i]._url);
+                ui->Name_9->setText(Search_vec[i]._user);
+                ui->PassWord_9->setText(Search_vec[i]._password);
+
+                ui->Get_9->setVisible(1);
+                ui->Change_9->setVisible(1);
+                ui->Delete_9->setVisible(1);
+
+                break;
+            }
+
+            case 9:{
+                ui->NO_10->setText("10");
+
+                ui->Url_10->setText(Search_vec[i]._url);
+                ui->Name_10->setText(Search_vec[i]._user);
+                ui->PassWord_10->setText(Search_vec[i]._password);
+
+                ui->Get_10->setVisible(1);
+                ui->Change_10->setVisible(1);
+                ui->Delete_10->setVisible(1);
+
+                break;
+            }
+
+            default:
+                break;
+            }
         }
-        case 1:{
-            ui->NO_2->setText("2");
 
-            ui->Url_2->setText(user[i]._url);
-            ui->Name_2->setText(user[i]._user);
-            ui->PassWord_2->setText(user[i]._password);
+        for(;p < 10;p++){
+            switch (p) {
+            case 0:{
+                ui->NO_1->setText(NullContent);
 
-            ui->Get_2->setVisible(1);
-            ui->Change_2->setVisible(1);
-            ui->Delete_2->setVisible(1);
+                ui->Url_1->setText(NullContent);
+                ui->Name_1->setText(NullContent);
+                ui->PassWord_1->setText(NullContent);
 
-            break;
+                ui->Get_1->setVisible(0);
+                ui->Change_1->setVisible(0);
+                ui->Delete_1->setVisible(0);
+
+                break;
+            }
+            case 1:{
+                ui->NO_2->setText(NullContent);
+
+                ui->Url_2->setText(NullContent);
+                ui->Name_2->setText(NullContent);
+                ui->PassWord_2->setText(NullContent);
+
+                ui->Get_2->setVisible(0);
+                ui->Change_2->setVisible(0);
+                ui->Delete_2->setVisible(0);
+
+                break;
+            }
+            case 2:{
+                ui->NO_3->setText(NullContent);
+
+                ui->Url_3->setText(NullContent);
+                ui->Name_3->setText(NullContent);
+                ui->PassWord_3->setText(NullContent);
+
+                ui->Get_3->setVisible(0);
+                ui->Change_3->setVisible(0);
+                ui->Delete_3->setVisible(0);
+
+                break;
+            }
+            case 3:{
+                ui->NO_4->setText(NullContent);
+
+                ui->Url_4->setText(NullContent);
+                ui->Name_4->setText(NullContent);
+                ui->PassWord_4->setText(NullContent);
+
+                ui->Get_4->setVisible(0);
+                ui->Change_4->setVisible(0);
+                ui->Delete_4->setVisible(0);
+
+                break;
+            }
+            case 4:{
+                ui->NO_5->setText(NullContent);
+
+                ui->Url_5->setText(NullContent);
+                ui->Name_5->setText(NullContent);
+                ui->PassWord_5->setText(NullContent);
+
+                ui->Get_5->setVisible(0);
+                ui->Change_5->setVisible(0);
+                ui->Delete_5->setVisible(0);
+
+                break;
+            }
+
+            case 5:{
+                ui->NO_6->setText(NullContent);
+
+                ui->Url_6->setText(NullContent);
+                ui->Name_6->setText(NullContent);
+                ui->PassWord_6->setText(NullContent);
+
+                ui->Get_6->setVisible(0);
+                ui->Change_6->setVisible(0);
+                ui->Delete_6->setVisible(0);
+
+                break;
+            }
+
+            case 6:{
+                ui->NO_7->setText(NullContent);
+
+                ui->Url_7->setText(NullContent);
+                ui->Name_7->setText(NullContent);
+                ui->PassWord_7->setText(NullContent);
+
+                ui->Get_7->setVisible(0);
+                ui->Change_7->setVisible(0);
+                ui->Delete_7->setVisible(0);
+
+                break;
+            }
+
+            case 7:{
+                ui->NO_8->setText(NullContent);
+
+                ui->Url_8->setText(NullContent);
+                ui->Name_8->setText(NullContent);
+                ui->PassWord_8->setText(NullContent);
+
+                ui->Get_8->setVisible(0);
+                ui->Change_8->setVisible(0);
+                ui->Delete_8->setVisible(0);
+
+                break;
+            }
+
+            case 8:{
+                ui->NO_9->setText(NullContent);
+
+                ui->Url_9->setText(NullContent);
+                ui->Name_9->setText(NullContent);
+                ui->PassWord_9->setText(NullContent);
+
+                ui->Get_9->setVisible(0);
+                ui->Change_9->setVisible(0);
+                ui->Delete_9->setVisible(0);
+
+                break;
+            }
+
+            case 9:{
+                ui->NO_10->setText(NullContent);
+
+                ui->Url_10->setText(NullContent);
+                ui->Name_10->setText(NullContent);
+                ui->PassWord_10->setText(NullContent);
+
+                ui->Get_10->setVisible(0);
+                ui->Change_10->setVisible(0);
+                ui->Delete_10->setVisible(0);
+                break;
+            }
+
+            default:
+                break;
+            }
         }
-        case 2:{
-            ui->NO_3->setText("3");
 
-            ui->Url_3->setText(user[i]._url);
-            ui->Name_3->setText(user[i]._user);
-            ui->PassWord_3->setText(user[i]._password);
+        ui->Pages->setText(QString::number(pages).toUtf8());
 
-            ui->Get_3->setVisible(1);
-            ui->Change_3->setVisible(1);
-            ui->Delete_3->setVisible(1);
+        updata();
+    }else if(modes == 0){
+        int start = (pages-1)*10;
+        int end = std::min(pages*10,static_cast<int>(user.size()));
+        int p = 0;
+        for(int i = start;i < end;i++,p++){
+            switch (p) {
+            case 0:{
+                ui->NO_1->setText("1");
 
-            break;
+                ui->Url_1->setText(user[i]._url);
+                ui->Name_1->setText(user[i]._user);
+                ui->PassWord_1->setText(user[i]._password);
+
+                ui->Get_1->setVisible(1);
+                ui->Change_1->setVisible(1);
+                ui->Delete_1->setVisible(1);
+
+                break;
+            }
+            case 1:{
+                ui->NO_2->setText("2");
+
+                ui->Url_2->setText(user[i]._url);
+                ui->Name_2->setText(user[i]._user);
+                ui->PassWord_2->setText(user[i]._password);
+
+                ui->Get_2->setVisible(1);
+                ui->Change_2->setVisible(1);
+                ui->Delete_2->setVisible(1);
+
+                break;
+            }
+            case 2:{
+                ui->NO_3->setText("3");
+
+                ui->Url_3->setText(user[i]._url);
+                ui->Name_3->setText(user[i]._user);
+                ui->PassWord_3->setText(user[i]._password);
+
+                ui->Get_3->setVisible(1);
+                ui->Change_3->setVisible(1);
+                ui->Delete_3->setVisible(1);
+
+                break;
+            }
+            case 3:{
+                ui->NO_4->setText("4");
+
+                ui->Url_4->setText(user[i]._url);
+                ui->Name_4->setText(user[i]._user);
+                ui->PassWord_4->setText(user[i]._password);
+
+                ui->Get_4->setVisible(1);
+                ui->Change_4->setVisible(1);
+                ui->Delete_4->setVisible(1);
+
+                break;
+            }
+            case 4:{
+                ui->NO_5->setText("5");
+
+                ui->Url_5->setText(user[i]._url);
+                ui->Name_5->setText(user[i]._user);
+                ui->PassWord_5->setText(user[i]._password);
+
+                ui->Get_5->setVisible(1);
+                ui->Change_5->setVisible(1);
+                ui->Delete_5->setVisible(1);
+
+                break;
+            }
+
+            case 5:{
+                ui->NO_6->setText("6");
+
+                ui->Url_6->setText(user[i]._url);
+                ui->Name_6->setText(user[i]._user);
+                ui->PassWord_6->setText(user[i]._password);
+
+                ui->Get_6->setVisible(1);
+                ui->Change_6->setVisible(1);
+                ui->Delete_6->setVisible(1);
+
+                break;
+            }
+
+            case 6:{
+                ui->NO_7->setText("7");
+
+                ui->Url_7->setText(user[i]._url);
+                ui->Name_7->setText(user[i]._user);
+                ui->PassWord_7->setText(user[i]._password);
+
+                ui->Get_7->setVisible(1);
+                ui->Change_7->setVisible(1);
+                ui->Delete_7->setVisible(1);
+
+                break;
+            }
+
+            case 7:{
+                ui->NO_8->setText("8");
+
+                ui->Url_8->setText(user[i]._url);
+                ui->Name_8->setText(user[i]._user);
+                ui->PassWord_8->setText(user[i]._password);
+
+                ui->Get_8->setVisible(1);
+                ui->Change_8->setVisible(1);
+                ui->Delete_8->setVisible(1);
+
+                break;
+            }
+
+            case 8:{
+                ui->NO_9->setText("9");
+
+                ui->Url_9->setText(user[i]._url);
+                ui->Name_9->setText(user[i]._user);
+                ui->PassWord_9->setText(user[i]._password);
+
+                ui->Get_9->setVisible(1);
+                ui->Change_9->setVisible(1);
+                ui->Delete_9->setVisible(1);
+
+                break;
+            }
+
+            case 9:{
+                ui->NO_10->setText("10");
+
+                ui->Url_10->setText(user[i]._url);
+                ui->Name_10->setText(user[i]._user);
+                ui->PassWord_10->setText(user[i]._password);
+
+                ui->Get_10->setVisible(1);
+                ui->Change_10->setVisible(1);
+                ui->Delete_10->setVisible(1);
+
+                break;
+            }
+
+            default:
+                break;
+            }
         }
-        case 3:{
-            ui->NO_4->setText("4");
 
-            ui->Url_4->setText(user[i]._url);
-            ui->Name_4->setText(user[i]._user);
-            ui->PassWord_4->setText(user[i]._password);
+        for(;p < 10;p++){
+            switch (p) {
+            case 0:{
+                ui->NO_1->setText(NullContent);
 
-            ui->Get_4->setVisible(1);
-            ui->Change_4->setVisible(1);
-            ui->Delete_4->setVisible(1);
+                ui->Url_1->setText(NullContent);
+                ui->Name_1->setText(NullContent);
+                ui->PassWord_1->setText(NullContent);
 
-            break;
+                ui->Get_1->setVisible(0);
+                ui->Change_1->setVisible(0);
+                ui->Delete_1->setVisible(0);
+
+                break;
+            }
+            case 1:{
+                ui->NO_2->setText(NullContent);
+
+                ui->Url_2->setText(NullContent);
+                ui->Name_2->setText(NullContent);
+                ui->PassWord_2->setText(NullContent);
+
+                ui->Get_2->setVisible(0);
+                ui->Change_2->setVisible(0);
+                ui->Delete_2->setVisible(0);
+
+                break;
+            }
+            case 2:{
+                ui->NO_3->setText(NullContent);
+
+                ui->Url_3->setText(NullContent);
+                ui->Name_3->setText(NullContent);
+                ui->PassWord_3->setText(NullContent);
+
+                ui->Get_3->setVisible(0);
+                ui->Change_3->setVisible(0);
+                ui->Delete_3->setVisible(0);
+
+                break;
+            }
+            case 3:{
+                ui->NO_4->setText(NullContent);
+
+                ui->Url_4->setText(NullContent);
+                ui->Name_4->setText(NullContent);
+                ui->PassWord_4->setText(NullContent);
+
+                ui->Get_4->setVisible(0);
+                ui->Change_4->setVisible(0);
+                ui->Delete_4->setVisible(0);
+
+                break;
+            }
+            case 4:{
+                ui->NO_5->setText(NullContent);
+
+                ui->Url_5->setText(NullContent);
+                ui->Name_5->setText(NullContent);
+                ui->PassWord_5->setText(NullContent);
+
+                ui->Get_5->setVisible(0);
+                ui->Change_5->setVisible(0);
+                ui->Delete_5->setVisible(0);
+
+                break;
+            }
+
+            case 5:{
+                ui->NO_6->setText(NullContent);
+
+                ui->Url_6->setText(NullContent);
+                ui->Name_6->setText(NullContent);
+                ui->PassWord_6->setText(NullContent);
+
+                ui->Get_6->setVisible(0);
+                ui->Change_6->setVisible(0);
+                ui->Delete_6->setVisible(0);
+
+                break;
+            }
+
+            case 6:{
+                ui->NO_7->setText(NullContent);
+
+                ui->Url_7->setText(NullContent);
+                ui->Name_7->setText(NullContent);
+                ui->PassWord_7->setText(NullContent);
+
+                ui->Get_7->setVisible(0);
+                ui->Change_7->setVisible(0);
+                ui->Delete_7->setVisible(0);
+
+                break;
+            }
+
+            case 7:{
+                ui->NO_8->setText(NullContent);
+
+                ui->Url_8->setText(NullContent);
+                ui->Name_8->setText(NullContent);
+                ui->PassWord_8->setText(NullContent);
+
+                ui->Get_8->setVisible(0);
+                ui->Change_8->setVisible(0);
+                ui->Delete_8->setVisible(0);
+
+                break;
+            }
+
+            case 8:{
+                ui->NO_9->setText(NullContent);
+
+                ui->Url_9->setText(NullContent);
+                ui->Name_9->setText(NullContent);
+                ui->PassWord_9->setText(NullContent);
+
+                ui->Get_9->setVisible(0);
+                ui->Change_9->setVisible(0);
+                ui->Delete_9->setVisible(0);
+
+                break;
+            }
+
+            case 9:{
+                ui->NO_10->setText(NullContent);
+
+                ui->Url_10->setText(NullContent);
+                ui->Name_10->setText(NullContent);
+                ui->PassWord_10->setText(NullContent);
+
+                ui->Get_10->setVisible(0);
+                ui->Change_10->setVisible(0);
+                ui->Delete_10->setVisible(0);
+                break;
+            }
+
+            default:
+                break;
+            }
         }
-        case 4:{
-            ui->NO_5->setText("5");
 
-            ui->Url_5->setText(user[i]._url);
-            ui->Name_5->setText(user[i]._user);
-            ui->PassWord_5->setText(user[i]._password);
+        ui->Pages->setText(QString::number(pages).toUtf8());
 
-            ui->Get_5->setVisible(1);
-            ui->Change_5->setVisible(1);
-            ui->Delete_5->setVisible(1);
-
-            break;
-        }
-
-        case 5:{
-            ui->NO_6->setText("6");
-
-            ui->Url_6->setText(user[i]._url);
-            ui->Name_6->setText(user[i]._user);
-            ui->PassWord_6->setText(user[i]._password);
-
-            ui->Get_6->setVisible(1);
-            ui->Change_6->setVisible(1);
-            ui->Delete_6->setVisible(1);
-
-            break;
-        }
-
-        case 6:{
-            ui->NO_7->setText("7");
-
-            ui->Url_7->setText(user[i]._url);
-            ui->Name_7->setText(user[i]._user);
-            ui->PassWord_7->setText(user[i]._password);
-
-            ui->Get_7->setVisible(1);
-            ui->Change_7->setVisible(1);
-            ui->Delete_7->setVisible(1);
-
-            break;
-        }
-
-        case 7:{
-            ui->NO_8->setText("8");
-
-            ui->Url_8->setText(user[i]._url);
-            ui->Name_8->setText(user[i]._user);
-            ui->PassWord_8->setText(user[i]._password);
-
-            ui->Get_8->setVisible(1);
-            ui->Change_8->setVisible(1);
-            ui->Delete_8->setVisible(1);
-
-            break;
-        }
-
-        case 8:{
-            ui->NO_9->setText("9");
-
-            ui->Url_9->setText(user[i]._url);
-            ui->Name_9->setText(user[i]._user);
-            ui->PassWord_9->setText(user[i]._password);
-
-            ui->Get_9->setVisible(1);
-            ui->Change_9->setVisible(1);
-            ui->Delete_9->setVisible(1);
-
-            break;
-        }
-
-        case 9:{
-            ui->NO_10->setText("10");
-
-            ui->Url_10->setText(user[i]._url);
-            ui->Name_10->setText(user[i]._user);
-            ui->PassWord_10->setText(user[i]._password);
-
-            ui->Get_10->setVisible(1);
-            ui->Change_10->setVisible(1);
-            ui->Delete_10->setVisible(1);
-
-            break;
-        }
-
-        default:
-            break;
-        }
+        updata();
     }
 
-    for(;p < 10;p++){
-        switch (p) {
-        case 0:{
-            ui->NO_1->setText(NullContent);
 
-            ui->Url_1->setText(NullContent);
-            ui->Name_1->setText(NullContent);
-            ui->PassWord_1->setText(NullContent);
-
-            ui->Get_1->setVisible(0);
-            ui->Change_1->setVisible(0);
-            ui->Delete_1->setVisible(0);
-
-            break;
-        }
-        case 1:{
-            ui->NO_2->setText(NullContent);
-
-            ui->Url_2->setText(NullContent);
-            ui->Name_2->setText(NullContent);
-            ui->PassWord_2->setText(NullContent);
-
-            ui->Get_2->setVisible(0);
-            ui->Change_2->setVisible(0);
-            ui->Delete_2->setVisible(0);
-
-            break;
-        }
-        case 2:{
-            ui->NO_3->setText(NullContent);
-
-            ui->Url_3->setText(NullContent);
-            ui->Name_3->setText(NullContent);
-            ui->PassWord_3->setText(NullContent);
-
-            ui->Get_3->setVisible(0);
-            ui->Change_3->setVisible(0);
-            ui->Delete_3->setVisible(0);
-
-            break;
-        }
-        case 3:{
-            ui->NO_4->setText(NullContent);
-
-            ui->Url_4->setText(NullContent);
-            ui->Name_4->setText(NullContent);
-            ui->PassWord_4->setText(NullContent);
-
-            ui->Get_4->setVisible(0);
-            ui->Change_4->setVisible(0);
-            ui->Delete_4->setVisible(0);
-
-            break;
-        }
-        case 4:{
-            ui->NO_5->setText(NullContent);
-
-            ui->Url_5->setText(NullContent);
-            ui->Name_5->setText(NullContent);
-            ui->PassWord_5->setText(NullContent);
-
-            ui->Get_5->setVisible(0);
-            ui->Change_5->setVisible(0);
-            ui->Delete_5->setVisible(0);
-
-            break;
-        }
-
-        case 5:{
-            ui->NO_6->setText(NullContent);
-
-            ui->Url_6->setText(NullContent);
-            ui->Name_6->setText(NullContent);
-            ui->PassWord_6->setText(NullContent);
-
-            ui->Get_6->setVisible(0);
-            ui->Change_6->setVisible(0);
-            ui->Delete_6->setVisible(0);
-
-            break;
-        }
-
-        case 6:{
-            ui->NO_7->setText(NullContent);
-
-            ui->Url_7->setText(NullContent);
-            ui->Name_7->setText(NullContent);
-            ui->PassWord_7->setText(NullContent);
-
-            ui->Get_7->setVisible(0);
-            ui->Change_7->setVisible(0);
-            ui->Delete_7->setVisible(0);
-
-            break;
-        }
-
-        case 7:{
-            ui->NO_8->setText(NullContent);
-
-            ui->Url_8->setText(NullContent);
-            ui->Name_8->setText(NullContent);
-            ui->PassWord_8->setText(NullContent);
-
-            ui->Get_8->setVisible(0);
-            ui->Change_8->setVisible(0);
-            ui->Delete_8->setVisible(0);
-
-            break;
-        }
-
-        case 8:{
-            ui->NO_9->setText(NullContent);
-
-            ui->Url_9->setText(NullContent);
-            ui->Name_9->setText(NullContent);
-            ui->PassWord_9->setText(NullContent);
-
-            ui->Get_9->setVisible(0);
-            ui->Change_9->setVisible(0);
-            ui->Delete_9->setVisible(0);
-
-            break;
-        }
-
-        case 9:{
-            ui->NO_10->setText(NullContent);
-
-            ui->Url_10->setText(NullContent);
-            ui->Name_10->setText(NullContent);
-            ui->PassWord_10->setText(NullContent);
-
-            ui->Get_10->setVisible(0);
-            ui->Change_10->setVisible(0);
-            ui->Delete_10->setVisible(0);
-            break;
-        }
-
-        default:
-            break;
-        }
-    }
-
-    ui->Pages->setText(QString::number(pages).toUtf8());
-
-    updata();
 }
-
+/*
 void MainScreen::_Search(QString src){
     //仅支持Url搜索
+    modes = 1;
 
-    QMessageBox::information(nullptr,"Sorry","搜索还没完成",QMessageBox::Yes,QMessageBox::Yes);
+    pages = 1;
+
+    for(int i = 0;i < MainScreen::sizes;i++){
+        if(user[i]._url == src.toUtf8()){
+            Search_vec.push_back(user[i]);
+            QMessageBox::information(nullptr,"test",user[i]._user,QMessageBox::Yes,QMessageBox::Yes);
+        }
+    }
+
+
+    MainScreen::show_inf();
     //qDebug() << src;
     return;
 }
-
-
+*/
 void MainScreen::updata(){
     ui->NO_1->repaint();
 
@@ -864,3 +1222,12 @@ void MainScreen::updata(){
 
     ui->Pages->repaint();
 }
+/*
+void MainScreen::OutSearch(){
+    modes = 0;
+
+    pages = 1;
+
+    MainScreen::show_inf();
+}
+*/

@@ -8,6 +8,10 @@
 #include <QMessageBox>
 #include <QVector>
 #include <QFrame>
+#include <QSystemTrayIcon>
+#include <QCloseEvent>
+#include <QAction>
+#include <QMenu>
 #include "myjson.h"
 #include "code.h"
 #include "add_new_information.h"
@@ -46,6 +50,7 @@ public:
     void Exit_Save();
 
     void _Search(QString src);
+    void OutSearch();
 
     Delete_Information changeui;
     Add_New_Information addui;
@@ -55,15 +60,26 @@ public:
 
     QString Root;
 
+    int modes;
+
     int pages;
     int max_pages;
     int sizes;
     int QAQ;
 
     std::vector<QUser> user;
+    std::vector<QUser> Search_vec;
 private:
     Ui::MainScreen *ui;
 
+    QSystemTrayIcon *SysIcon;
+    QAction *Reset;
+    QAction *Quit;
+    QMenu *menu;
+    void closeEvent(QCloseEvent *event);
+
+private slots:
+    void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
 };
 

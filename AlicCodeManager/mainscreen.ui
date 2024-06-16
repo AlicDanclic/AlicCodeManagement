@@ -1157,29 +1157,6 @@
     <string>增加</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>10</y>
-     <width>191</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Search">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>10</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>搜索</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="EnterButton">
    <property name="geometry">
     <rect>

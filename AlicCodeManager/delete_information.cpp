@@ -6,7 +6,7 @@ Delete_Information::Delete_Information(QWidget *parent) :
     ui(new Ui::Delete_Information)
 {
     ui->setupUi(this);
-
+    this->setWindowIcon(QIcon(QDir::currentPath()+"/resource/picture/Icon.ico"));
     connect(ui->pushButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
        Change_Information();
        this->close();
