@@ -17,6 +17,7 @@
 #include "add_new_information.h"
 #include "delete_information.h"
 
+
 struct QUser{
     QString _url;
     QString _user;
@@ -69,6 +70,7 @@ public:
 
     std::vector<QUser> user;
     std::vector<QUser> Search_vec;
+
 private:
     Ui::MainScreen *ui;
 

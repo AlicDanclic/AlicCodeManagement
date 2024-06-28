@@ -34,8 +34,8 @@ SOURCES += \
     enterui.cpp \
     mainscreen.cpp \
     add_new_information.cpp \
-    delete_information.cpp \
-    code.cpp
+    code.cpp \
+    delete_information.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,8 +43,8 @@ HEADERS += \
     myjson.h \
     mainscreen.h \
     add_new_information.h \
-    delete_information.h \
-    code.h
+    code.h \
+    delete_information.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

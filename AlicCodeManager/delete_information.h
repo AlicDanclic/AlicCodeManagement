@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QFile>
+#include <QMessageBox>
+#include <QDateTime>
 #include "myjson.h"
 #include "code.h"
 
@@ -21,6 +23,7 @@ public:
 private:
     Ui::Delete_Information *ui;
     void Change_Information();
+    void Random_new_code();
 };
 
 #endif // DELETE_INFORMATION_H

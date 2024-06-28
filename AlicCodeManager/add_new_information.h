@@ -21,6 +21,7 @@ public:
 private:
     Ui::Add_New_Information *ui;
     void add_new_information_to_log();
+    void Random_new_code();
 };
 
 #endif // ADD_NEW_INFORMATION_H

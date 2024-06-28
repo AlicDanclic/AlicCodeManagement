@@ -15,12 +15,17 @@ Add_New_Information::Add_New_Information(QWidget *parent) :
     ui(new Ui::Add_New_Information)
 {
     ui->setupUi(this);
+    this->setFixedSize(400,300);
     this->setWindowIcon(QIcon(QDir::currentPath()+"/resource/picture/Icon.ico"));
 
     connect(ui->pushButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
        Add_New_Information::add_new_information_to_log();
 
        this->close();
+    });
+
+    connect(ui->RandomButton,QOverload<bool>::of(&QPushButton::clicked),[=](bool check){
+        Add_New_Information::Random_new_code();
     });
 
 }
@@ -48,6 +53,13 @@ void Add_New_Information::add_new_information_to_log(){
     QString userval = ui->uservalue->text();
     QString passwordval = encode(ui->passwordvalue->text());
 
+    if(urlval == NULL || userval == NULL || passwordval == NULL){
+
+        reject();
+
+        return;
+    }
+
     QString Root = QDir::currentPath();
 
     QFile Save_log(Root+"/config/log_1");
@@ -59,6 +71,13 @@ void Add_New_Information::add_new_information_to_log(){
     Save_log.write((urlval+"\n"+userval+"\n"+passwordval).toUtf8());
 
     Save_log.close();
+    accept();
+}
+
+void Add_New_Information::Random_new_code(){
+    QString code = RandomCode(10);
+    ui->passwordvalue->setText(code);
+    QMessageBox::information(nullptr,"随机密码",code,QMessageBox::Yes,QMessageBox::Yes);
 }
 
 

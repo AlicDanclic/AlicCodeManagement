@@ -6,6 +6,7 @@ EnterUI::EnterUI(QWidget *parent) :
     ui(new Ui::EnterUI)
 {
     ui->setupUi(this);
+    this->setFixedSize(325,468);
 
     setWindowTitle("AlicCodeManger欢迎你!");
     this->setWindowIcon(QIcon(QDir::currentPath()+"/resource/picture/Icon.ico"));
@@ -213,6 +214,8 @@ void EnterUI::enter(){
                     Save_log.close();
 
                     this->close();
+
+                    mainscreen.CreateScreen();
 
                     mainscreen.show();
 

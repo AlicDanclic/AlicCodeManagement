@@ -8,6 +8,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ui(new Ui::MainScreen)
 {
     ui->setupUi(this);
+    this->setFixedSize(909,572);
 
     MainScreen::Root = QDir::currentPath();
 
@@ -428,7 +429,12 @@ void MainScreen::NextPage(){
 }
 
 void MainScreen::Addnew(){
-    addui.exec();
+
+    int result = addui.exec();
+
+    if(result == QDialog::Rejected){
+        return;
+    }
 
     QString path = MainScreen::Root+"/config/log_1";
 
@@ -480,7 +486,11 @@ void MainScreen::Addnew(){
 }
 
 void MainScreen::Change(int No){
-    changeui.exec();
+     int result = changeui.exec();
+
+    if(result == QDialog::Rejected){
+        return;
+    }
 
     QString path = MainScreen::Root+"/config/log_2";
 

@@ -123,6 +123,19 @@
     <string>确定</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="RandomButton">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>190</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>随机密码</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
