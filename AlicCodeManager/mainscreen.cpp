@@ -17,7 +17,7 @@ MainScreen::MainScreen(QWidget *parent) :
     SysIcon = new QSystemTrayIcon(this);
     SysIcon->setIcon(icon);
     SysIcon->setToolTip("AlicCodeManager");
-    Reset = new QAction("回复",this);
+    Reset = new QAction("恢复",this);
     connect(Reset,&QAction::triggered,this,&MainScreen::showNormal);
 
     Quit = new QAction("关闭",this);
@@ -41,7 +41,7 @@ MainScreen::MainScreen(QWidget *parent) :
             QAQ = 1;
         }
         else{
-             //qDebug()<< "Error 1231 : can't open error";
+             QMessageBox::information(nullptr,"错误","文件无法正常加载",QMessageBox::Yes,QMessageBox::Yes);
         }
     });
 
@@ -204,7 +204,7 @@ void MainScreen::closeEvent(QCloseEvent *event){
 
     if(btn == QMessageBox::Yes){
         this->hide();
-        SysIcon->showMessage("AlicCodeManager","Test");
+        //SysIcon->showMessage("AlicCodeManager","Test");
         event->ignore();
     }
     else{
@@ -228,52 +228,52 @@ void MainScreen::Get(int No){
     switch (No) {
     case 0:{
         pClip->setText(decode(ui->PassWord_1->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 1:{
         pClip->setText(decode(ui->PassWord_2->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 2:{
         pClip->setText(decode(ui->PassWord_3->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 3:{
         pClip->setText(decode(ui->PassWord_4->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 4:{
         pClip->setText(decode(ui->PassWord_5->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 5:{
         pClip->setText(decode(ui->PassWord_6->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 6:{
         pClip->setText(decode(ui->PassWord_7->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 7:{
         pClip->setText(decode(ui->PassWord_8->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 8:{
         pClip->setText(decode(ui->PassWord_9->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     case 9:{
         pClip->setText(decode(ui->PassWord_10->text()));
-        QMessageBox::information(nullptr,"OK","复制成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","密码提取成功",QMessageBox::Yes,QMessageBox::Yes);
         break;
     }
     default:
@@ -289,7 +289,7 @@ void MainScreen::Exit_Save(){
     QFile passwordFile(path);
 
     if(!passwordFile.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",path + "无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -321,7 +321,7 @@ void MainScreen::CreateScreen(){
     QFile user_log(MainScreen::Root+"/config/log");
 
     if(!user_log.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",MainScreen::Root+"/config/log" + "无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -347,12 +347,12 @@ void MainScreen::_read(){
     QFile passwordFile(path);
 
     if(!passwordFile.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",path + "无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
     if(passwordFile.size() == 0){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",path + "文件为空",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 
@@ -367,7 +367,7 @@ void MainScreen::_read(){
     QJsonDocument doc = QJsonDocument::fromJson(_str.toUtf8(),&jsonError);
 
     if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
-        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误",path+"Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 
@@ -408,7 +408,7 @@ void MainScreen::_read(){
 
 void MainScreen::LastPage(){
     if(pages-1 <= 0){
-        QMessageBox::information(nullptr,"Error 1233","已经到顶了",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误","页数已经到顶了",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
     else{
@@ -423,7 +423,7 @@ void MainScreen::NextPage(){
         show_inf();
     }
     else{
-        QMessageBox::information(nullptr,"Error 1233","已经到最后了",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误","页数已经到最后了",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 }
@@ -441,7 +441,7 @@ void MainScreen::Addnew(){
     QFile File(path);
 
     if(!File.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug() << "Error 1231";
+        QMessageBox::information(nullptr,"错误",path+"无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 
@@ -497,7 +497,7 @@ void MainScreen::Change(int No){
     QFile File(path);
 
     if(!File.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug() << "Error 1231";
+        QMessageBox::information(nullptr,"错误",path+"无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 

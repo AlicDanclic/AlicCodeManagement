@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QSharedMemory singleton(a.applicationName());
 
     if(!singleton.create(1)){
-        QMessageBox::warning(nullptr,"Warning","Program already running!");
+        QMessageBox::warning(nullptr,"警告","程序已经在运行!");
         return false;
     }
 

@@ -46,7 +46,7 @@ void EnterUI::resign(){
 
     QFile file(Root+"/config/log.json");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -76,7 +76,7 @@ void EnterUI::resign(){
         QFile files(Root+"/config/log.json");
 
         if(!files.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-            QMessageBox::information(nullptr,"Error 1233","文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
+            QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
             return;
         }
 
@@ -90,7 +90,7 @@ void EnterUI::resign(){
 
         newPassFile.open(QIODevice::WriteOnly);
 
-        QMessageBox::information(nullptr,"test1","注册成功",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"提示","新账户注册成功",QMessageBox::Yes,QMessageBox::Yes);
 
         newPassFile.close();
 
@@ -98,7 +98,7 @@ void EnterUI::resign(){
     }
 
     if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
-        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -113,7 +113,7 @@ void EnterUI::resign(){
             QJsonObject valueObj = value.toObject();
             QJsonValue usernameValue = valueObj.value("username");
             if(username == usernameValue.toString()){
-                QMessageBox::information(nullptr,"Error 1234","用户名已存在",QMessageBox::Yes,QMessageBox::Yes);
+                QMessageBox::information(nullptr,"错误","该用户名已存在",QMessageBox::Yes,QMessageBox::Yes);
                 return;
             }
 
@@ -134,9 +134,9 @@ void EnterUI::resign(){
     QJsonDocument docs;
     docs.setArray(userArray);
 
-    QFile files(Root + "/config/log.json");
+    QFile files(Root+"/config/log.json");
     if(!files.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-        QMessageBox::information(nullptr,"Error 1233","文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"文件打开错误",QMessageBox::Yes,QMessageBox::Yes);
         return;
     }
 
@@ -150,7 +150,7 @@ void EnterUI::resign(){
 
     newPassFile.open(QIODevice::WriteOnly);
 
-    QMessageBox::information(nullptr,"test","注册成功",QMessageBox::Yes,QMessageBox::Yes);
+    QMessageBox::information(nullptr,"提示","新用户注册成功",QMessageBox::Yes,QMessageBox::Yes);
 
     newPassFile.close();
 
@@ -167,7 +167,7 @@ void EnterUI::enter(){
 
     QFile file(Root+"/config/log.json");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        //qDebug()<< "Error 1231 : can't open error";
+        QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"无法正常打开",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -182,7 +182,7 @@ void EnterUI::enter(){
     QJsonDocument doc = QJsonDocument::fromJson(str.toUtf8(),&jsonError);
 
     if(jsonError.error != QJsonParseError::NoError && !doc.isNull()){
-        QMessageBox::information(nullptr,"Error 1232","Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
+        QMessageBox::information(nullptr,"错误",Root+"/config/log.json"+"Json格式错误",QMessageBox::Yes,QMessageBox::Yes);
         return ;
     }
 
@@ -200,12 +200,12 @@ void EnterUI::enter(){
                 QJsonValue passwordValue = valueObj.value("password");
                 if(password == passwordValue.toString()){
                     //
-                    QMessageBox::information(nullptr,"test","登陆成功",QMessageBox::Yes,QMessageBox::Yes);
+                    QMessageBox::information(nullptr,"提示","登陆成功",QMessageBox::Yes,QMessageBox::Yes);
 
                     QFile Save_log(Root+"/config/log");
 
                     if(!Save_log.open(QIODevice::WriteOnly | QIODevice::Truncate)){
-                        //qDebug()<< "Error 1231 : can't open error";
+                        QMessageBox::information(nullptr,"错误",Root+"/config/log"+"无法打开",QMessageBox::Yes,QMessageBox::Yes);
                         return ;
                     }
 
@@ -221,7 +221,7 @@ void EnterUI::enter(){
 
                 }
                 else{
-                    QMessageBox::information(nullptr,"Error 1122","密码错误",QMessageBox::Yes,QMessageBox::Yes);
+                    QMessageBox::information(nullptr,"错误","密码输入错误",QMessageBox::Yes,QMessageBox::Yes);
                 }
                 return;
             }
@@ -233,7 +233,7 @@ void EnterUI::enter(){
         }
     }
 
-    QMessageBox::information(nullptr,"Error 1123","用户名错误",QMessageBox::Yes,QMessageBox::Yes);
+    QMessageBox::information(nullptr,"错误","该用户名不存在",QMessageBox::Yes,QMessageBox::Yes);
 
     return;
 }

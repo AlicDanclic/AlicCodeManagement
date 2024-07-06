@@ -55,6 +55,8 @@ void Add_New_Information::add_new_information_to_log(){
 
     if(urlval == NULL || userval == NULL || passwordval == NULL){
 
+        QMessageBox::information(nullptr,"错误","信息不全,无法添加",QMessageBox::Yes,QMessageBox::Yes);
+
         reject();
 
         return;

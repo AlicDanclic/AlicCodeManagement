@@ -30,6 +30,8 @@ void Delete_Information::Change_Information(){
 
     if(urlval == NULL || userval == NULL || passwordval == NULL){
 
+        QMessageBox::information(nullptr,"错误","信息不全,无法添加",QMessageBox::Yes,QMessageBox::Yes);
+
         reject();
 
         return;
